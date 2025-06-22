@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediax - Topnav and Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='abouts.css') }}">
+</head>
+<body>
+    <!-- Header Section (unchanged) -->
+    <header>
+        <div class="top-bar">
+            <div class="contact-info">
+                <span><i class="fas fa-phone-alt"></i> Phone: +163-654-3569</span>
+                <span><i class="fas fa-envelope"></i> Email: info@mediax.com</span>
+            </div>
+            <div class="language-social">
+                <span>Follow Us:</span>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>Mediax</h1>
+                <p>Health & Medical</p>
+            </div>
+            <ul class="nav-links">
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('services') }}">Service </a></li>
+                    <li><a href="{{ url_for('team') }}">Team</a></li>
+                    <li><a href="#">Blog </a></li>
+                    <li><a href="#" id="appointment-link">appointment</a></li>
+                    <li><a href="#" id="history-link">History</a></li>
+                    <li id="auth-link"><a href="/login" id="login-link">Login</a></li>
+                </ul>
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Updated Hero Section -->
+    <section class="about-us-header">
+        <div class="background-icons">
+            <img src="{{ url_for('static', filename='icons/stethoscope-heart.png') }}" alt="Stethoscope Heart" class="icon stethoscope">
+            <img src="{{ url_for('static', filename='icons/aboutus_bg.png') }}" alt="Green Arrow" class="icon arrow">
+            <img src="{{ url_for('static', filename='icons/aboutus_bg-removebg-preview.png') }}" alt="Green Plus" class="icon plus">
+        </div>
+        <div class="content">
+            <h1>About Us</h1>
+            <nav class="breadcrumbs">
+                <a href="/">Home</a> > <a href="{{ url_for('about') }}">About Us</a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- About Us Section (unchanged) -->
+    <div class="container">
+        <div class="background-elements">
+            <div class="pill-dot-image"></div>
+        </div>
+        <div class="left-section">
+            <div class="image-grid">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/aboutus_1.webp') }}" alt="Doctor 1" class="fade-in">
+                </div>
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/aboutus_2.webp') }}" alt="Nurse with Patient 1" class="fade-in">
+                </div>
+            </div>
+            <div class="doctor-info">
+                <img src="{{ url_for('static', filename='images/doctoer_abouts.png') }}" alt="Doctor Profile" class="fade-in">
+                <div>
+                    <h2>Dr. Esita Jabed</h2>
+                    <p>Mention the languages in which the staff...</p>
+                    <div class="rating">★★★★★</div>
+                    <div class="contact">+163 564 78965</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-section">
+            <div class="about-header">
+                <img src="{{ url_for('static', filename='icons/logo.png') }}" alt="Company Logo" class="company-logo">
+                <h4>About Us Company</h4>
+            </div>
+            <h1>Affordable Health Care Solutions</h1>
+            <p>A brief statement outlining the purpose and mission of the clinic. This can include the commitment to patient care, community health, any special goals or values.</p>
+            <div class="services">
+                <div class="service-item fade-in">
+                    <i class="fas fa-heartbeat"></i>
+                    <p>Medical Professionals</p>
+                </div>
+                <div class="service-item fade-in">
+                    <i class="fas fa-ambulance"></i>
+                    <p>Emergency Care</p>
+                </div>
+                <div class="service-item fade-in">
+                    <i class="fas fa-stethoscope"></i>
+                    <p>Facilities and Equipment</p>
+                </div>
+                <div class="service-item fade-in">
+                    <i class="fas fa-user-md"></i>
+                    <p>Medical Consulting</p>
+                </div>
+                <div class="service-item fade-in">
+                    <i class="fas fa-heart"></i>
+                    <p>Services Offered</p>
+                </div>
+                <div class="service-item fade-in">
+                    <i class="fas fa-notes-medical"></i>
+                    <p>Specializations</p>
+                </div>
+            </div>
+            <button class="more-about-btn">More About</button>
+        </div>
+    </div>
+   <!-- Statistics Section -->
+   <section class="statistics-section">
+    <div class="stat-item fade-in">
+        <h2 class="counter" data-target="69000">0</h2>
+        <p>Satisfied Patients</p>
+    </div>
+    <div class="stat-item fade-in">
+        <h2 class="counter" data-target="236">0</h2>
+        <p>Professional Doctors</p>
+    </div>
+    <div class="stat-item fade-in">
+        <h2 class="counter" data-target="19000">0</h2>
+        <p>Operations Successful</p>
+    </div>
+    <div class="stat-item fade-in">
+        <h2 class="counter" data-target="320">0</h2>
+        <p>National Awards Win</p>
+    </div>
+</section>
+
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-us">
+    <div class="section-header">
+        <div class="header-logo-text">
+            <div class="header-logo">
+                <img src="{{ url_for('static', filename='icons/logo.png') }}" alt="Logo">
+            </div>
+            <h4>Why Choose Us</h4>
+        </div>
+        <h1>We Have 25 Years Experience In <span>Medical Health</span> Services</h1>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <h3>Experience Doctor</h3>
+            <p>Our products are certified by reputable organic.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-syringe"></i>
+            </div>
+            <h3>Painless Treatment</h3>
+            <p>Our products are certified by reputable organic.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+            <h3>Top Equipment</h3>
+            <p>Our products are certified by reputable organic.</p>
+        </div>
+        <div class="feature-card fade-in">
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>24/7 Advance Care</h3>
+            <p>Our products are certified by reputable organic.</p>
+        </div>
+    </div>
+</section>
+
+   <!-- Video Thumbnail Section -->
+   <section class="video-section">
+    <div class="video-container">
+        <div class="video-thumbnail">
+            <img id="video-thumbnail-img" src="" alt="Video Thumbnail">
+            <div class="play-button">
+                <i class="fas fa-play"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Modal (Popup) -->
+<div class="video-modal">
+    <div class="video-modal-content">
+        <span class="close-modal">×</span>
+        <iframe src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+
+<section class="doctors-section">
+    <div class="section-header">
+        <div class="header-logo-text">
+            <div class="header-logo">
+                <img src="{{ url_for('static', filename='icons/logo.png') }}" alt="Logo">
+            </div>
+            <h4>Expert Doctors</h4>
+        </div>
+        <h1>Meet Our Professional Doctors</h1>
+    </div>
+    <div class="doctors-carousel">
+        <div class="doctors-track">
+            <!-- Original Cards -->
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Douglas Lyphe">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Douglas Lyphe</h3>
+                    <p>Physiotherapist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Wisteria Ravenc">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Wisteria Ravenc</h3>
+                    <p>Cardiologist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Benjamin Evalent">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Benjamin Evalent</h3>
+                    <p>Dentist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Rishta Rosei">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Rishta Rosei</h3>
+                    <p>Neurologist</p>
+                </div>
+            </div>
+            <!-- Duplicate Cards for Seamless Scrolling -->
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Douglas Lyphe">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Douglas Lyphe</h3>
+                    <p>Physiotherapist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Wisteria Ravenc">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Wisteria Ravenc</h3>
+                    <p>Cardiologist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Benjamin Evalent">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Benjamin Evalent</h3>
+                    <p>Dentist</p>
+                </div>
+            </div>
+            <div class="doctor-card fade-in">
+                <div class="doctor-image">
+                    <img src="{{ url_for('static', filename='images/doctor_img.jpg') }}" alt="Dr. Rishta Rosei">
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="doctor-info">
+                    <h3>Dr. Rishta Rosei</h3>
+                    <p>Neurologist</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- Appointment Popup -->
+  <div class="popup" id="appointment-popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()"><i class="fas fa-times"></i></span>
+        <h2>Create Appointment</h2>
+        <form id="create-appointment-form">
+            <div class="input-group">
+                <label for="appointment-name">Name</label>
+                <input type="text" id="appointment-name" required>
+            </div>
+            <div class="input-group">
+                <label for="appointment-phone">Phone Number</label>
+                <input type="tel" id="appointment-phone" required>
+            </div>
+            <div class="input-group">
+                <label for="appointment-department">Department</label>
+                <select id="appointment-department" required>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Orthopedics">Orthopedics</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Dermatology">Dermatology</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="appointment-time">Time</label>
+                <input type="time" id="appointment-time" required>
+            </div>
+            <div class="input-group">
+                <label for="appointment-date">Date</label>
+                <input type="date" id="appointment-date" required>
+            </div>
+            <div class="input-group">
+                <label for="appointment-description">Description</label>
+                <textarea id="appointment-description" rows="3" placeholder="Optional description of your issue"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Create Appointment</button>
+            <p class="message" id="create-appointment-message" aria-live="polite"></p>
+        </form>
+    </div>
+</div>
+
+<!--footer-->
+<div class="content"></div> <!-- Placeholder for main content -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='icons/logopng.svg') }}" alt="Mediax Logo">
+            </div>
+            <h3>Mediax Health & Medical</h3>
+            <p>Subscribe to our newsletter today to receive latest news administrate cost effective for tactical data.</p>
+            <p><img src="{{ url_for('static', filename='icons/pin.png') }}" alt="Location Icon" width="26px"> 2478 Street City Ohio 90255</p>
+            <p><img src="{{ url_for('static', filename='icons/mail.png') }}" alt="Email Icon"width="21px"> info@mediax.com</p>
+            <p><img src="{{ url_for('static', filename='icons/phone-call.png') }}" alt="Phone Icon"width="21px"> +4402 763 282 46</p>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Our Services</a></li>
+                <li><a href="#">Help & FAQs</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Popular Service</h3>
+            <ul>
+                <li><a href="#">Cardiology Care</a></li>
+                <li><a href="#">Urgent Care</a></li>
+                <li><a href="#">Orthopedic Care</a></li>
+                <li><a href="#">Diagnosis</a></li>
+                <li><a href="#">Gastroenterology</a></li>
+                <li><a href="#">Therapy Department</a></li>
+                <li><a href="#">Dental Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-section recent-posts">
+            <h3>Recent Posts</h3>
+            <div class="post">
+                <img src="{{ url_for('static', filename='images/post_1.jpg') }}" alt="Post 1">
+                <div class="text">
+                    <h4>How Business Is Taking Over & What to Do About It</h4>
+                    <span>21 Jun. 2024</span>
+                </div>
+            </div>
+            <div class="post">
+                <img src="{{ url_for('static', filename='images/post_2.avif') }}" alt="Post 2">
+                <div class="text">
+                    <h4>Health vs. Wealth Navigate Business in Medicine</h4>
+                    <span>22 Jun. 2024</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Copyright © 2024 Mediax. All Rights Reserved.</p>
+    </div>
+</footer>
+    <!-- JavaScript (unchanged) -->
+    <script>
+        // Menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Navbar and top bar scroll behavior
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const topBar = document.querySelector('.top-bar');
+            const currentScroll = window.scrollY;
+
+            if (currentScroll > lastScroll) {
+                topBar.classList.add('hidden');
+                navbar.classList.add('hidden');
+            } else {
+                topBar.classList.remove('hidden');
+                navbar.classList.remove('hidden');
+            }
+
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        });
+
+        // Fade-in observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => observer.observe(element));
+        });
+
+
+
+         // Counter Animation
+         document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 200; // Adjust speed of counting (lower = faster)
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const increment = target / speed;
+                let count = 0;
+
+                const updateCounter = () => {
+                    count += increment;
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count).toLocaleString() + (target >= 1000 ? '+' : '');
+                        setTimeout(updateCounter, 10);
+                    } else {
+                        counter.innerText = target.toLocaleString() + (target >= 1000 ? '+' : '');
+                    }
+                };
+
+                updateCounter();
+            };
+
+            // Intersection Observer to trigger animation when section is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const countersInView = entry.target.querySelectorAll('.counter');
+                        countersInView.forEach(counter => animateCounter(counter));
+                        observer.unobserve(entry.target); // Stop observing after animation
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector('.statistics-section'));
+        });
+
+         // Fade-in observer
+         document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => observer.observe(element));
+        });
+
+
+            // Video Modal Functionality
+            document.addEventListener('DOMContentLoaded', () => {
+            const playButton = document.querySelector('.play-button');
+            const videoModal = document.querySelector('.video-modal');
+            const videoIframe = videoModal.querySelector('iframe');
+            const closeModal = document.querySelector('.close-modal');
+            const videoThumbnailImg = document.querySelector('#video-thumbnail-img');
+
+            // Define the YouTube video link here (this is the single place to update the link)
+            const videoLink = 'https://youtu.be/vjhHnTCSy0U?si=XZMLJ5sJkgpRGNI2';
+
+            // Function to extract the video ID from the YouTube link
+            function extractVideoId(link) {
+                const regex = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/;
+                const match = link.match(regex);
+                return match ? match[1] : null;
+            }
+
+            // Extract the video ID
+            const videoId = extractVideoId(videoLink);
+            if (!videoId) {
+                console.error('Invalid YouTube video link');
+                return;
+            }
+
+            // Set the thumbnail URL using the video ID
+            videoThumbnailImg.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+            // Open modal and set video source when play button is clicked
+            playButton.addEventListener('click', () => {
+                videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+
+            // Close modal and reset video source
+            closeModal.addEventListener('click', () => {
+                videoModal.classList.remove('active');
+                videoIframe.src = ''; // Stop video by resetting source
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            });
+
+            // Close modal when clicking outside the video
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.classList.remove('active');
+                    videoIframe.src = '';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(element => observer.observe(element));
+        });
+
+
+        // Update Navbar based on login status
+        function updateNavbar() {
+            const token = localStorage.getItem('token');
+            const authLink = document.getElementById('auth-link');
+            if (token) {
+                authLink.innerHTML = '<a href="#" id="logout-link">Logout</a>';
+                document.getElementById('logout-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    updateNavbar();
+                    window.location.href = '/login';
+                });
+            } else {
+                authLink.innerHTML = '<a href="/login" id="login-link">Login</a>';
+            }
+        }
+
+        // Call updateNavbar on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavbar();
+        });
+
+        // Popup handling
+        const appointmentLink = document.getElementById('appointment-link');
+        const appointmentPopup = document.getElementById('appointment-popup');
+
+        appointmentLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please log in to create an appointment.');
+                window.location.href = '/login';
+                return;
+            }
+            appointmentPopup.style.display = 'flex';
+        });
+
+        function closePopup() {
+            appointmentPopup.style.display = 'none';
+            document.getElementById('create-appointment-form').reset();
+            document.getElementById('create-appointment-message').textContent = '';
+        }
+
+        // Create Appointment Form
+        document.getElementById('create-appointment-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nameElement = document.getElementById('appointment-name');
+            const phoneElement = document.getElementById('appointment-phone');
+            const departmentElement = document.getElementById('appointment-department');
+            const timeElement = document.getElementById('appointment-time');
+            const dateElement = document.getElementById('appointment-date');
+            const descriptionElement = document.getElementById('appointment-description');
+
+            if (!nameElement || !phoneElement || !departmentElement || !timeElement || !dateElement || !descriptionElement) {
+                console.error('One or more form elements not found:', {
+                    nameElement, phoneElement, departmentElement, timeElement, dateElement, descriptionElement
+                });
+                showMessage('create-appointment-message', 'Error: Form elements not found. Please check the form.');
+                return;
+            }
+
+            const name = nameElement.value.trim();
+            const phone = phoneElement.value.trim();
+            const department = departmentElement.value;
+            const time = timeElement.value;
+            const date = dateElement.value;
+            const description = descriptionElement.value.trim();
+
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showMessage('create-appointment-message', 'Please log in to create an appointment.');
+                return;
+            }
+
+            // Input validation
+            if (!name || !phone || !department || !time || !date) {
+                showMessage('create-appointment-message', 'Please fill in all required fields');
+                return;
+            }
+
+            if (!phone.match(/^\d{10}$/)) {
+                showMessage('create-appointment-message', 'Phone number must be a 10-digit number');
+                return;
+            }
+
+            const today = new Date();
+            const selectedDate = new Date(date);
+            if (selectedDate < today.setHours(0, 0, 0, 0)) {
+                showMessage('create-appointment-message', 'Date cannot be in the past');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/create-appointment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ name, phone_number: phone, department, time, date, description })
+                });
+
+                // Log the response status and headers for debugging
+                console.log('Response Status:', response.status);
+                console.log('Response Headers:', response.headers.get('content-type'));
+
+                // Check if the response is JSON
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('Non-JSON response received:', text);
+                    throw new Error(`Server did not return JSON. Status: ${response.status}. Response: ${text.substring(0, 100)}...`);
+                }
+
+                const data = await response.json();
+                showMessage('create-appointment-message', data.message, response.ok);
+                if (response.ok) {
+                    setTimeout(() => {
+                        closePopup();
+                        window.location.href = '/history';
+                    }, 2000);
+                }
+            } catch (error) {
+                console.error('Error creating appointment:', error);
+                showMessage('create-appointment-message', `Error creating appointment: ${error.message}`);
+            }
+        });
+
+        // History Link Handling
+        const historyLink = document.getElementById('history-link');
+        historyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please log in to view appointment history.');
+                window.location.href = '/login';
+                return;
+            }
+            window.location.href = '/history';
+        });
+
+        // Show Message Function
+        function showMessage(elementId, message, isSuccess = false) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.classList.toggle('success', isSuccess);
+                element.classList.toggle('error', !isSuccess);
+            }
+        }
+
+    </script>
+</body>
+</html>

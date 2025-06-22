@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mediax</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .form-box {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            background: #f5f7fa;
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background: #e6e6e6;
+        }
+
+        .tab.active {
+            color: #fff;
+            background: #007bff;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        input:focus, select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            background: #fff;
+        }
+
+        .forgot-password, .resend-otp {
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            color: #007bff;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover, .resend-otp:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .signup-link, .message {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .message {
+            color: #d9534f;
+        }
+
+        .message.success {
+            color: #28a745;
+        }
+
+        .nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav button {
+            background: #fff;
+            color: #333;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav button:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .section-box {
+            display: none;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px;
+            margin: 20px auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-box.active {
+            display: block;
+        }
+
+        /* Enhanced Appointments Table Styling */
+        .appointments-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            font-size: 14px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .appointments-table th, .appointments-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .appointments-table th {
+            background: #007bff;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .appointments-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .appointments-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        .appointments-table td {
+            background: #fff;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .appointments-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .appointments-table tr:hover td {
+            background: #f5f7fa;
+            transition: background 0.3s ease;
+        }
+
+        .appointments-table td button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            font-size: 12px;
+            font-weight: 500;
+            width: auto;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .appointments-table td button:hover {
+            transform: translateY(-2px);
+        }
+
+        .appointments-table td button.accept {
+            background: #28a745;
+            color: #fff;
+        }
+
+        .appointments-table td button.accept:hover {
+            background: #218838;
+        }
+
+        .appointments-table td button.reject {
+            background: #dc3545;
+            color: #fff;
+        }
+
+        .appointments-table td button.reject:hover {
+            background: #c82333;
+        }
+
+        /* Status Styling */
+        .appointments-table td.status-accepted {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .appointments-table td.status-rejected {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .appointments-table td.status-pending {
+            color: #f39c12;
+            font-weight: 500;
+        }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .appointments-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .appointments-table thead, .appointments-table tbody, .appointments-table tr, .appointments-table th, .appointments-table td {
+                display: block;
+            }
+
+            .appointments-table thead {
+                display: none;
+            }
+
+            .appointments-table tr {
+                margin-bottom: 15px;
+                border-bottom: 2px solid #e5e7eb;
+            }
+
+            .appointments-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 15px;
+                border-bottom: 1px solid #e5e7eb;
+                text-align: right;
+                position: relative;
+            }
+
+            .appointments-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: 600;
+                color: #555;
+                text-align: left;
+                width: 40%;
+            }
+
+            .appointments-table td:last-child {
+                border-bottom: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-box, .section-box {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .nav button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+
+            .appointments-table td button {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="nav">
+        <button id="nav-back-home">Back to Home</button>
+    </div>
+
+    <div class="container">
+        <div class="form-box">
+            <div class="tabs">
+                <div class="tab active" data-tab="login">LOGIN</div>
+                <div class="tab" data-tab="register">SIGNUP</div>
+            </div>
+
+            <div id="login" class="form-section active">
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="login-role">Role</label>
+                        <select id="login-role" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <a href="#" class="forgot-password" id="forgot-password-link">Forgot password?</a>
+                    <button type="submit">LOGIN</button>
+                    <p class="signup-link">Not a member? <a href="#" class="signup-link-a">Sign up now</a></p>
+                    <p class="message" id="login-message" aria-live="polite"></p>
+                </form>
+            </div>
+
+            <div id="register" class="form-section">
+                <form id="register-form">
+                    <div class="input-group">
+                        <label for="register-email">Email Address</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" required>
+                    </div>
+                    <button type="submit">SIGNUP</button>
+                    <p class="message" id="register-message" aria-live="polite"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="verify-otp" class="section-box">
+        <h2>Verify OTP</h2>
+        <form id="verify-otp-form">
+            <div class="input-group">
+                <label for="verify-email">Email Address</label>
+                <input type="email" id="verify-email" required>
+            </div>
+            <div class="input-group">
+                <label for="verify-otp-input">OTP</label>
+                <input type="text" id="verify-otp-input" required>
+            </div>
+            <a href="#" class="resend-otp">Resend OTP</a>
+            <button type="submit">VERIFY OTP</button>
+            <p class="message" id="verify-otp-message" aria-live="polite"></p>
+        </form>
+    </div>
+
+    <div id="forgot-password" class="section-box">
+        <h2>Forgot Password</h2>
+        <form id="forgot-password-form">
+            <div class="input-group">
+                <label for="forgot-email">Email Address</label>
+                <input type="email" id="forgot-email" required>
+            </div>
+            <button type="submit">Request OTP</button>
+            <p class="message" id="forgot-password-message" aria-live="polite"></p>
+        </form>
+    </div>
+
+    <div id="reset-password" class="section-box">
+        <h2>Reset Password</h2>
+        <form id="reset-password-form">
+            <div class="input-group">
+                <label for="reset-email">Email Address</label>
+                <input type="email" id="reset-email" required>
+            </div>
+            <div class="input-group">
+                <label for="reset-otp">OTP</label>
+                <input type="text" id="reset-otp" required>
+            </div>
+            <div class="input-group">
+                <label for="reset-new-password">New Password</label>
+                <input type="password" id="reset-new-password" required>
+            </div>
+            <button type="submit">Reset Password</button>
+            <p class="message" id="reset-password-message" aria-live="polite"></p>
+        </form>
+    </div>
+
+    <div id="admin-appointments" class="section-box">
+        <h2>All Appointments</h2>
+        <table class="appointments-table" id="admin-appointments-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Department</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <p class="message" id="admin-appointments-message" aria-live="polite"></p>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function showMessage(elementId, message, isSuccess = false) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.classList.toggle('success', isSuccess);
+                element.classList.toggle('error', !isSuccess);
+            }
+        }
+
+        function showSection(sectionId) {
+            const sections = ['login', 'register', 'verify-otp', 'forgot-password', 
+                            'reset-password', 'admin-appointments'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                section.classList.toggle('active', id === sectionId);
+            });
+            document.querySelector('.container').style.display = 
+                sectionId === 'login' || sectionId === 'register' ? 'flex' : 'none';
+            
+            if (sectionId === 'admin-appointments') fetchAdminAppointments();
+            if (sectionId === 'verify-otp') {
+                console.log('Showing verify-otp section, attaching listener...');
+                setTimeout(() => attachVerifyOtpListener(), 100);
+            }
+        }
+
+        function attachEventListener(id, event, callback) {
+            const element = document.getElementById(id);
+            if (element) element.addEventListener(event, callback);
+            else console.error(`Element with ID ${id} not found`);
+        }
+
+        function attachVerifyOtpListener() {
+            const form = document.getElementById('verify-otp-form');
+            if (!form) {
+                console.error('Verify OTP form not found');
+                return;
+            }
+
+            console.log('Attaching submit listener to verify-otp-form');
+            form.removeEventListener('submit', handleVerifyOtpSubmit);
+            form.addEventListener('submit', handleVerifyOtpSubmit);
+
+            const resendLink = document.querySelector('.resend-otp');
+            if (resendLink) {
+                console.log('Attaching click listener to resend-otp link');
+                resendLink.removeEventListener('click', handleResendOtp);
+                resendLink.addEventListener('click', handleResendOtp);
+            } else {
+                console.error('Resend OTP link not found');
+            }
+        }
+
+        async function handleVerifyOtpSubmit(e) {
+            e.preventDefault();
+            console.log('handleVerifyOtpSubmit called');
+
+            const emailInput = document.getElementById('verify-email');
+            const otpInput = document.getElementById('verify-otp-input');
+            
+            console.log('Email input:', emailInput);
+            console.log('OTP input:', otpInput);
+
+            if (!emailInput || !otpInput) {
+                showMessage('verify-otp-message', 'Form elements not found');
+                console.error('Verify OTP inputs not found:', { emailInput, otpInput });
+                return;
+            }
+
+            const email = emailInput.value ? emailInput.value.trim() : '';
+            const otp = otpInput.value ? otpInput.value.trim() : '';
+
+            console.log('Email:', email);
+            console.log('OTP:', otp);
+
+            if (!email || !otp) {
+                showMessage('verify-otp-message', 'Please fill in all fields');
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showMessage('verify-otp-message', 'Please enter a valid email address');
+                return;
+            }
+
+            if (!otp.match(/^\d{6}$/)) {
+                showMessage('verify-otp-message', 'OTP must be a 6-digit number');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/verify-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, otp })
+                });
+                const data = await response.json();
+                showMessage('verify-otp-message', data.message, response.ok);
+                if (response.ok) setTimeout(() => showSection('login'), 1000);
+            } catch (error) {
+                showMessage('verify-otp-message', 'OTP verification failed');
+                console.error('Verify OTP error:', error);
+            }
+        }
+
+        async function handleResendOtp(e) {
+            e.preventDefault();
+            console.log('handleResendOtp called');
+
+            const emailInput = document.getElementById('verify-email');
+            const email = emailInput && emailInput.value ? emailInput.value.trim() : '';
+            
+            if (!email) {
+                showMessage('verify-otp-message', 'Please enter your email address');
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showMessage('verify-otp-message', 'Please enter a valid email address');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/request-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password: 'temp' })
+                });
+                const data = await response.json();
+                showMessage('verify-otp-message', data.message, response.ok);
+            } catch (error) {
+                showMessage('verify-otp-message', 'Failed to resend OTP');
+                console.error('Resend OTP error:', error);
+            }
+        }
+
+        // Login Form (Now handles both user and admin login)
+        attachEventListener('login-form', 'submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const role = document.getElementById('login-role').value;
+
+            try {
+                const endpoint = role === 'admin' ? 'http://localhost:5000/admin/login' : 'http://localhost:5000/login';
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+                showMessage('login-message', data.message, response.ok);
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    if (role === 'admin') {
+                        showSection('admin-appointments');
+                    } else {
+                        setTimeout(() => window.location.href = '/', 1000);
+                    }
+                }
+            } catch (error) {
+                showMessage('login-message', 'Login failed. Please try again.');
+            }
+        });
+
+        // Register Form
+        attachEventListener('register-form', 'submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value.trim();
+            const password = document.getElementById('register-password').value;
+            const confirm = document.getElementById('confirm-password').value;
+            
+            if (password !== confirm) {
+                showMessage('register-message', 'Passwords do not match');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/request-otp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+                showMessage('register-message', data.message, response.ok);
+                if (response.ok) {
+                    document.getElementById('verify-email').value = email;
+                    showSection('verify-otp');
+                }
+            } catch (error) {
+                showMessage('register-message', 'Registration failed');
+            }
+        });
+
+        // Navigation
+        attachEventListener('nav-back-home', 'click', () => window.location.href = '/');
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Forgot Password Link
+        attachEventListener('forgot-password-link', 'click', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            document.getElementById('forgot-email').value = email; // Pre-fill email
+            showSection('forgot-password');
+        });
+
+        // Forgot Password Form Submission
+        attachEventListener('forgot-password-form', 'submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('forgot-email');
+            const email = emailInput ? emailInput.value.trim() : '';
+
+            // Input validation
+            if (!email) {
+                showMessage('forgot-password-message', 'Please enter your email address');
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showMessage('forgot-password-message', 'Please enter a valid email address');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/forgot-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                showMessage('forgot-password-message', data.message, response.ok);
+                if (response.ok) {
+                    // Pre-fill the reset password form with the email
+                    document.getElementById('reset-email').value = email;
+                    setTimeout(() => showSection('reset-password'), 1000);
+                }
+            } catch (error) {
+                showMessage('forgot-password-message', 'Failed to request OTP. Please try again.');
+                console.error('Forgot Password error:', error);
+            }
+        });
+
+        // Reset Password
+        attachEventListener('reset-password-form', 'submit', async (e) => {
+            e.preventDefault();
+            const emailInput = document.getElementById('reset-email');
+            const otpInput = document.getElementById('reset-otp');
+            const newPasswordInput = document.getElementById('reset-new-password');
+
+            const email = emailInput ? emailInput.value.trim() : '';
+            const otp = otpInput ? otpInput.value.trim() : '';
+            const new_password = newPasswordInput ? newPasswordInput.value : '';
+
+            // Input validation
+            if (!email || !otp || !new_password) {
+                showMessage('reset-password-message', 'Please fill in all fields');
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showMessage('reset-password-message', 'Please enter a valid email address');
+                return;
+            }
+
+            if (!otp.match(/^\d{6}$/)) {
+                showMessage('reset-password-message', 'OTP must be a 6-digit number');
+                return;
+            }
+
+            if (new_password.length < 8) {
+                showMessage('reset-password-message', 'Password must be at least 8 characters long');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, otp, new_password })
+                });
+                const data = await response.json();
+                showMessage('reset-password-message', data.message, response.ok);
+                if (response.ok) setTimeout(() => showSection('login'), 1000);
+            } catch (error) {
+                showMessage('reset-password-message', 'Password reset failed. Please try again.');
+                console.error('Reset Password error:', error);
+            }
+        });
+
+        // Fetch Admin Appointments
+        async function fetchAdminAppointments() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showMessage('admin-appointments-message', 'Please log in as admin to view appointments.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/admin/appointments', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const appointments = await response.json();
+                const tbody = document.querySelector('#admin-appointments-table tbody');
+                tbody.innerHTML = '';
+                if (response.ok) {
+                    appointments.forEach(appointment => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td data-label="ID">${appointment.appointment_id}</td>
+                            <td data-label="User ID">${appointment.user_id}</td>
+                            <td data-label="Name">${appointment.name}</td>
+                            <td data-label="Phone Number">${appointment.phone_number}</td>
+                            <td data-label="Department">${appointment.department}</td>
+                            <td data-label="Time">${appointment.time}</td>
+                            <td data-label="Date">${appointment.date}</td>
+                            <td data-label="Description">${appointment.description || ''}</td>
+                            <td data-label="Status" class="status-${appointment.status.toLowerCase()}">${appointment.status}</td>
+                            <td data-label="Action">
+                                <button class="accept" data-appointment-id="${appointment.appointment_id}" data-status="accepted">Accept</button>
+                                <button class="reject" data-appointment-id="${appointment.appointment_id}" data-status="rejected">Reject</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+                    });
+
+                    document.querySelectorAll('.appointments-table button').forEach(button => {
+                        button.addEventListener('click', async (e) => {
+                            const appointmentId = e.target.getAttribute('data-appointment-id');
+                            const status = e.target.getAttribute('data-status');
+                            try {
+                                const response = await fetch(`http://localhost:5000/admin/appointment/${appointmentId}`, {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}`
+                                    },
+                                    body: JSON.stringify({ status })
+                                });
+                                const data = await response.json();
+                                showMessage('admin-appointments-message', data.message, response.ok);
+                                if (response.ok) fetchAdminAppointments();
+                            } catch (error) {
+                                showMessage('admin-appointments-message', 'Failed to update appointment');
+                            }
+                        });
+                    });
+                } else {
+                    showMessage('admin-appointments-message', appointments.message || 'Failed to fetch appointments.');
+                }
+            } catch (error) {
+                showMessage('admin-appointments-message', 'Error fetching appointments');
+            }
+        }
+
+        // Initial setup
+        showSection('login');
+    });
+    </script>
+</body>
+</html>

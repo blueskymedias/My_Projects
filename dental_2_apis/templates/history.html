@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment History - Mediax</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            overflow: auto;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            transition: transform 0.3s ease, padding 0.3s ease;
+        }
+
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .navbar.scrolled {
+            padding: 10px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo h1 {
+            font-size: clamp(20px, 5vw, 28px);
+            color: #007bff;
+            transition: font-size 0.3s ease;
+        }
+
+        .logo p {
+            font-size: clamp(10px, 2vw, 12px);
+            color: #666;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: clamp(15px, 3vw, 20px);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: clamp(14px, 2.5vw, 16px);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #007bff;
+        }
+
+        .nav-links a i {
+            margin-left: 5px;
+            font-size: clamp(10px, 2vw, 12px);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #007bff;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle span:nth-child(1) { top: 0; }
+        .menu-toggle span:nth-child(2) { top: 11px; }
+        .menu-toggle span:nth-child(3) { top: 22px; }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg);
+            top: 11px;
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg);
+            top: 11px;
+        }
+
+        /* History Section */
+        .history-section {
+            margin-top: 100px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .history-section h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* No Appointments Message */
+        .no-appointments {
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Enhanced History Table Styling */
+        .history-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            font-size: 14px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .history-table th, .history-table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .history-table th {
+            background: #007bff;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .history-table th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .history-table th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+        .history-table td {
+            background: #fff;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .history-table tr:hover td {
+            background: #f5f7fa;
+            transition: background 0.3s ease;
+        }
+
+        /* Status Styling */
+        .history-table td.status-accepted {
+            color: #28a745;
+            font-weight: 500;
+        }
+
+        .history-table td.status-accepted:before {
+            content: "\f058"; /* Font Awesome check-circle */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 8px;
+            color: #28a745;
+        }
+
+        .history-table td.status-rejected {
+            color: #dc3545;
+            font-weight: 500;
+        }
+
+        .history-table td.status-rejected:before {
+            content: "\f057"; /* Font Awesome times-circle */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 8px;
+            color: #dc3545;
+        }
+
+        .history-table td.status-pending {
+            color: #f39c12;
+            font-weight: 500;
+        }
+
+        .history-table td.status-pending:before {
+            content: "\f017"; /* Font Awesome clock */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 8px;
+            color: #f39c12;
+        }
+
+        /* Responsive Table - Card Layout for Mobile */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                padding: 20px 0;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+                max-height: 600px;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .history-section {
+                padding: 30px 15px;
+            }
+
+            .history-table {
+                display: block;
+                box-shadow: none;
+            }
+
+            .history-table thead {
+                display: none;
+            }
+
+            .history-table tbody {
+                display: block;
+            }
+
+            .history-table tr {
+                display: block;
+                margin-bottom: 20px;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .history-table tr:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .history-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 15px;
+                border-bottom: 1px solid #e5e7eb;
+                text-align: right;
+                position: relative;
+                font-size: 14px;
+                color: #555;
+            }
+
+            .history-table td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 15px;
+                font-weight: 600;
+                color: #333;
+                text-align: left;
+                width: 40%;
+            }
+
+            .history-table td:last-child {
+                border-bottom: none;
+            }
+
+            /* Ensure status icons are visible on mobile */
+            .history-table td.status-accepted:before,
+            .history-table td.status-rejected:before,
+            .history-table td.status-pending:before {
+                position: static;
+                margin-right: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar {
+                padding: clamp(8px, 2vw, 10px) clamp(10px, 3vw, 15px);
+            }
+
+            .logo h1 {
+                font-size: clamp(18px, 5vw, 24px);
+            }
+
+            .history-section {
+                padding: 20px 10px;
+            }
+
+            .history-section h2 {
+                font-size: 24px;
+            }
+
+            .history-table td {
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+
+            .history-table td:before {
+                width: 45%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mediax</h1>
+            <p>Health & Medical</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Service <i class="fas fa-plus"></i></a></li>
+            <li><a href="#">Pages <i class="fas fa-plus"></i></a></li>
+            <li><a href="#">Blog <i class="fas fa-plus"></i></a></li>
+            <li><a href="#" id="appointment-link">appointment</a></li>
+            <li><a href="/history">History</a></li>
+            <li id="auth-link"><a href="/login" id="login-link">Login</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- History Section -->
+    <section class="history-section">
+        <h2>Your Appointment History</h2>
+        <table class="history-table" id="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <p class="no-appointments" id="no-appointments" style="display: none;">No appointments found.</p>
+    </section>
+
+    <script>
+        // Menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Navbar scroll behavior
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            const currentScroll = window.scrollY;
+
+            if (currentScroll > lastScroll) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
+
+            if (currentScroll > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll;
+        });
+
+        // Update Navbar based on login status
+        function updateNavbar() {
+            const token = localStorage.getItem('token');
+            const authLink = document.getElementById('auth-link');
+            if (token) {
+                authLink.innerHTML = '<a href="#" id="logout-link">Logout</a>';
+                document.getElementById('logout-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    updateNavbar();
+                    window.location.href = '/login';
+                });
+            } else {
+                authLink.innerHTML = '<a href="/login" id="login-link">Login</a>';
+            }
+        }
+
+        // Call updateNavbar on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavbar();
+            fetchAppointmentHistory();
+        });
+
+        // Fetch Appointment History
+        async function fetchAppointmentHistory() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please log in to view your appointment history.');
+                window.location.href = '/login';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:5000/appointment-history', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const appointments = await response.json();
+                const tbody = document.querySelector('#history-table tbody');
+                const noAppointmentsMessage = document.getElementById('no-appointments');
+                tbody.innerHTML = '';
+
+                if (response.ok) {
+                    if (appointments.length === 0) {
+                        noAppointmentsMessage.style.display = 'block';
+                    } else {
+                        noAppointmentsMessage.style.display = 'none';
+                        appointments.forEach(appointment => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td data-label="ID">${appointment.appointment_id}</td>
+                                <td data-label="Name">${appointment.name}</td>
+                                <td data-label="Department">${appointment.department}</td>
+                                <td data-label="Time">${appointment.time}</td>
+                                <td data-label="Date">${appointment.date}</td>
+                                <td data-label="Description">${appointment.description || ''}</td>
+                                <td data-label="Status" class="status-${appointment.status.toLowerCase()}">${appointment.status}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+                } else {
+                    alert(appointments.message || 'Failed to fetch appointment history.');
+                }
+            } catch (error) {
+                alert('Error fetching appointment history');
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
